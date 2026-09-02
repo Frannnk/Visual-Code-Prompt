@@ -1,0 +1,284 @@
+{
+  "page": {
+    "id": "login-page",
+    "name": "登录页",
+    "module": "auth"
+  },
+  "elements": [
+    {
+      "id": "login-phone-input",
+      "name": "手机号输入框",
+      "type": "input",
+      "module": "auth",
+      "binding": {
+        "specId": "login-phone-input",
+        "selector": "[data-spec-id='login-phone-input']"
+      },
+      "states": ["default", "focused", "error", "disabled"],
+      "interaction": [
+        "用户输入手机号，实时更新表单状态。",
+        "失焦或点击登录时执行前端格式校验。",
+        "校验失败时展示字段级错误，并阻止进入提交流程。"
+      ],
+      "rules": [
+        "必填项。",
+        "仅允许输入数字。",
+        "最大长度 11 位。",
+        "需满足中国大陆手机号格式。"
+      ],
+      "copy": {
+        "label": "手机号",
+        "placeholder": "请输入手机号",
+        "helper": "未注册手机号将无法登录",
+        "error": "请输入正确的手机号"
+      },
+      "exceptions": [
+        "若账号被风控，不在字段级提示，统一在表单级错误区域展示。",
+        "服务端失败时保留用户已输入内容。"
+      ],
+      "devNotes": [
+        "建议添加 inputMode='numeric'。",
+        "提交时需要 trim 并再次校验。"
+      ]
+    },
+    {
+      "id": "login-password-input",
+      "name": "密码输入框",
+      "type": "input",
+      "module": "auth",
+      "binding": {
+        "specId": "login-password-input",
+        "selector": "[data-spec-id='login-password-input']"
+      },
+      "states": ["default", "focused", "error", "disabled"],
+      "interaction": [
+        "用户输入密码，更新本地表单状态。",
+        "点击登录时校验必填和长度。",
+        "校验通过后与手机号一起提交。"
+      ],
+      "rules": [
+        "必填项。",
+        "密码长度需在 6 到 20 位之间。",
+        "不做前端复杂度强校验，只做基础长度限制。"
+      ],
+      "copy": {
+        "label": "密码",
+        "placeholder": "请输入密码",
+        "helper": "建议开启大小写区分",
+        "error": "请输入 6-20 位密码"
+      },
+      "exceptions": [
+        "若接口返回密码错误，优先展示表单级错误，而不是字段级错误。",
+        "密码输入框不应因接口失败清空。"
+      ],
+      "devNotes": [
+        "建议使用 type='password'。",
+        "提交失败后保持焦点状态可继续编辑。"
+      ]
+    },
+    {
+      "id": "login-button",
+      "name": "登录按钮",
+      "type": "button",
+      "module": "auth",
+      "binding": {
+        "specId": "login-button",
+        "selector": "[data-spec-id='login-button']"
+      },
+      "states": ["default", "loading", "disabled"],
+      "interaction": [
+        "点击后先执行表单校验。",
+        "校验通过进入 loading 状态，并发起登录请求。",
+        "请求结束后根据结果切换到成功或错误反馈。"
+      ],
+      "rules": [
+        "手机号和密码都合法时按钮可提交。",
+        "loading 状态下禁止重复点击。",
+        "请求进行中按钮文案切换为“登录中...”。"
+      ],
+      "copy": {
+        "default": "登录",
+        "loading": "登录中...",
+        "disabled": "请先完善信息"
+      },
+      "exceptions": [
+        "请求超时后恢复可点击状态。",
+        "请求失败时保留表单数据并展示错误说明。"
+      ],
+      "devNotes": [
+        "应增加防重复提交逻辑。",
+        "建议将 loading 态和 disabled 态视觉区分。"
+      ]
+    },
+    {
+      "id": "login-error-alert",
+      "name": "错误提示区",
+      "type": "feedback",
+      "module": "auth",
+      "binding": {
+        "specId": "login-error-alert",
+        "selector": "[data-spec-id='login-error-alert']"
+      },
+      "states": ["hidden", "visible"],
+      "interaction": [
+        "当字段校验失败或接口返回错误时显示。",
+        "用户修改输入内容后可重新触发校验并更新提示内容。"
+      ],
+      "rules": [
+        "优先展示最阻塞当前操作的问题。",
+        "字段级错误和表单级错误需避免重复表达。"
+      ],
+      "copy": {
+        "validation": "请检查输入信息后重试",
+        "api": "账号或密码错误，请重新输入",
+        "network": "网络异常，请稍后重试"
+      },
+      "exceptions": [
+        "loading 状态不应出现多个错误层级同时闪烁。",
+        "成功登录后立即清空错误提示。"
+      ],
+      "devNotes": [
+        "建议使用 role='alert' 提升无障碍可读性。"
+      ]
+    },
+    {
+      "id": "login-loading-hint",
+      "name": "加载状态提示",
+      "type": "status",
+      "module": "auth",
+      "binding": {
+        "specId": "login-loading-hint",
+        "selector": "[data-spec-id='login-loading-hint']"
+      },
+      "states": ["hidden", "visible"],
+      "interaction": [
+        "进入 loading 后出现轻量状态提示。",
+        "请求结束后消失。"
+      ],
+      "rules": [
+        "仅在 loading 时展示。",
+        "与按钮 loading 状态保持一致。"
+      ],
+      "copy": {
+        "loading": "正在验证账号信息，请稍候"
+      },
+      "exceptions": [
+        "超时后应切换为错误提示，而不是一直停留在 loading。"
+      ],
+      "devNotes": [
+        "建议添加弱动画，避免页面看起来卡死。"
+      ]
+    }
+  ],
+  "stateSpecs": [
+    {
+      "id": "state-form-default",
+      "scope": "page",
+      "state": "default",
+      "name": "表单初始态",
+      "when": ["页面首次进入，尚未提交。"],
+      "ui": [
+        "输入框可编辑。",
+        "按钮默认可点击，但提交时仍会做校验。",
+        "不展示错误提示。"
+      ],
+      "next": [
+        "输入内容后进入可编辑态。",
+        "点击登录触发前端校验。"
+      ],
+      "exceptions": [
+        "如果从异常登录流程返回，可带入上一次表单内容。"
+      ]
+    },
+    {
+      "id": "state-form-loading",
+      "scope": "page",
+      "state": "loading",
+      "name": "登录提交中",
+      "when": ["用户点击登录按钮且前端校验通过。"],
+      "ui": [
+        "登录按钮显示 loading。",
+        "输入区和按钮保持视觉稳定，不跳动布局。",
+        "展示辅助加载说明。"
+      ],
+      "next": [
+        "成功则进入 success。",
+        "失败则进入 error。"
+      ],
+      "exceptions": [
+        "超过 1.6 秒未返回时，也应保持可理解反馈。",
+        "超时后恢复可编辑并提示网络异常。"
+      ]
+    },
+    {
+      "id": "state-form-error",
+      "scope": "page",
+      "state": "error",
+      "name": "登录错误态",
+      "when": ["前端校验失败，或接口返回失败结果。"],
+      "ui": [
+        "展示错误提示。",
+        "保留已输入内容。",
+        "允许用户继续编辑并重新提交。"
+      ],
+      "next": [
+        "用户修改内容后重新校验。",
+        "再次点击登录可重新进入 loading。"
+      ],
+      "exceptions": [
+        "若为字段格式错误，优先展示字段级提示。",
+        "若为账号或密码错误，优先使用表单级错误提示。"
+      ]
+    },
+    {
+      "id": "state-form-success",
+      "scope": "page",
+      "state": "success",
+      "name": "登录成功态",
+      "when": ["接口返回成功。"],
+      "ui": [
+        "显示成功提示。",
+        "表单区域可冻结显示短暂反馈。"
+      ],
+      "next": [
+        "进入首页或下一步页面。"
+      ],
+      "exceptions": [
+        "若需要延时跳转，必须给出明确成功反馈。"
+      ]
+    }
+  ],
+  "flows": [
+    {
+      "id": "flow-login-submit",
+      "name": "登录提交流程",
+      "steps": [
+        {
+          "id": "step-phone",
+          "name": "输入手机号",
+          "goal": "完成账号输入"
+        },
+        {
+          "id": "step-password",
+          "name": "输入密码",
+          "goal": "完成密码输入"
+        },
+        {
+          "id": "step-validate",
+          "name": "执行校验",
+          "goal": "确保必填与格式正确"
+        },
+        {
+          "id": "step-submit",
+          "name": "提交请求",
+          "goal": "发起登录"
+        },
+        {
+          "id": "step-result",
+          "name": "展示结果",
+          "goal": "进入成功或失败反馈"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "name": "visual-code-prompt",
+  "private": false,
+  "version": "0.0.1",
+  "type": "module",
+  "description": "Visual Code Prompt is a browser extension for selecting webpage elements and generating precise AI edit prompts.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Frannnk/Visual-Code-Prompt.git"
+  },
+  "license": "MIT",
+  "keywords": [
+    "chrome-extension",
+    "ai-agent",
+    "prompt",
+    "web-design",
+    "ui-editing"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.5",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "typescript": "^5.5.4",
+    "vite": "^5.4.2"
+  }
+}

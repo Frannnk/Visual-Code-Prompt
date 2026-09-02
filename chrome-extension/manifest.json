@@ -1,0 +1,27 @@
+{
+  "manifest_version": 3,
+  "name": "Visual Code Prompt",
+  "description": "Select live webpage elements and generate precise AI edit prompts and runtime patches.",
+  "version": "0.1.0",
+  "permissions": ["activeTab"],
+  "host_permissions": ["<all_urls>"],
+  "action": {
+    "default_title": "Visual Code Prompt"
+  },
+  "background": {
+    "service_worker": "src/background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["src/content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["src/content.css", "src/assets/*.svg"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}

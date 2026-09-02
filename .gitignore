@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.DS_Store
+*.log
+*.local
+*.tmp
+*.swp
+tsconfig.app.tsbuildinfo
+.env
+.env.*
+!.env.example
