@@ -36,3 +36,8 @@ node --check chrome-extension/src/background.js
 - The extension runs on regular webpages only.
 - It does not run on browser-internal pages such as `chrome://extensions`.
 - The root React app is a separate demo and is not required for extension use.
+
+## Store and privacy
+
+- [Chrome Web Store listing copy and submission checklist](../CHROME_WEB_STORE_LISTING.md)
+- [Privacy policy](../PRIVACY.md)

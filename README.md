@@ -67,3 +67,9 @@ src/
 ## License
 
 [MIT](./LICENSE)
+
+## Chrome Web Store
+
+Store copy, permission justifications, privacy disclosures, reviewer notes, and
+submission assets are maintained in [`CHROME_WEB_STORE_LISTING.md`](./CHROME_WEB_STORE_LISTING.md),
+[`PRIVACY.md`](./PRIVACY.md), and [`store-assets/`](./store-assets/).

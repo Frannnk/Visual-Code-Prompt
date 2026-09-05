@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Visual Code Prompt store assets</title>
+  <style>
+    :root { font-family: Inter, Arial, sans-serif; color: #182230; background: #f2f5f8; }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-width: 1280px; min-height: 800px; background: #f2f5f8; }
+    .browser { width: 1280px; height: 800px; background: #fff; overflow: hidden; }
+    .chrome { height: 54px; background: #e8edf2; display: flex; align-items: center; gap: 16px; padding: 0 22px; color: #52606d; font-size: 13px; }
+    .dots { display: flex; gap: 7px; } .dots i { width: 10px; height: 10px; border-radius: 50%; display: block; background: #b9c3cc; }
+    .address { height: 32px; flex: 1; max-width: 560px; background: #f8fafb; border: 1px solid #d6dde4; border-radius: 8px; display: flex; align-items: center; padding: 0 14px; }
+    .page { position: relative; height: 746px; overflow: hidden; background: #fbfcfd; }
+    .nav { height: 68px; display: flex; align-items: center; justify-content: space-between; padding: 0 58px; border-bottom: 1px solid #e9eef2; background: #fff; }
+    .brand { font-size: 19px; font-weight: 750; color: #111827; } .links { display: flex; gap: 28px; color: #687582; font-size: 13px; }
+    .hero { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; padding: 86px 100px 0; }
+    .eyebrow { color: #0891b2; font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+    h1 { margin: 16px 0 14px; max-width: 450px; font-size: 45px; line-height: 1.06; letter-spacing: -.04em; color: #111827; }
+    .copy { max-width: 420px; color: #657482; font-size: 16px; line-height: 1.65; }
+    .cta { margin-top: 24px; display: inline-flex; align-items: center; gap: 8px; padding: 13px 18px; border-radius: 8px; color: #fff; background: #111827; font-weight: 700; font-size: 13px; }
+    .mock { position: relative; margin-top: 12px; height: 340px; border: 1px solid #d9e1e8; border-radius: 14px; background: #fff; box-shadow: 0 16px 38px rgba(23, 43, 61, .12); overflow: hidden; }
+    .mock-top { height: 42px; border-bottom: 1px solid #e8edf1; display: flex; align-items: center; gap: 7px; padding: 0 14px; }
+    .mock-top i { width: 7px; height: 7px; border-radius: 50%; background: #c6d0d8; } .mock-top span { margin-left: 8px; font-size: 11px; color: #92a0aa; }
+    .mock-content { padding: 25px 28px; } .mock-label { width: 76px; height: 8px; border-radius: 3px; background: #b9e5ee; } .mock-title { width: 210px; height: 17px; border-radius: 4px; background: #d8e0e6; margin-top: 13px; } .mock-line { width: 250px; height: 7px; border-radius: 3px; background: #edf0f2; margin-top: 10px; }
+    .mock-card { margin-top: 24px; width: 290px; height: 98px; border-radius: 9px; background: #eff9fb; border: 1px solid #b5e5ed; padding: 15px; } .mock-card b { display: block; width: 112px; height: 10px; border-radius: 3px; background: #85cbd8; } .mock-card p { width: 215px; height: 7px; border-radius: 3px; background: #c9e8ed; margin: 13px 0 0; }
+    .selection { position: absolute; left: 180px; top: 198px; width: 294px; height: 108px; border: 2px solid #06b6d4; border-radius: 9px; box-shadow: 0 0 0 4px rgba(6,182,212,.12); } .selection:after { content: 'section.card'; position: absolute; top: -25px; left: -2px; padding: 4px 7px; border-radius: 4px; background: #0891b2; color: #fff; font: 11px monospace; }
+    .toolbar { position: absolute; left: 470px; bottom: 25px; display: flex; align-items: center; gap: 11px; padding: 10px 13px; background: rgba(17,24,39,.96); border-radius: 14px; box-shadow: 0 10px 24px rgba(16,24,40,.3); color: #fff; }
+    .toolbar strong { font-size: 12px; letter-spacing: -.01em; } .toolbar em { width: 7px; height: 7px; border-radius: 50%; background: #22c55e; display: block; box-shadow: 0 0 0 3px rgba(34,197,94,.15); } .sep { width: 1px; height: 25px; background: #3a4555; } .tool { width: 30px; height: 30px; display: grid; place-items: center; border: 1px solid #3b495b; border-radius: 7px; color: #d7f8fc; font-size: 14px; } .tool.active { border-color: #22d3ee; background: #164e63; }
+    .panel { position: absolute; top: 116px; right: 46px; width: 300px; padding: 18px; border: 1px solid #dbe4ea; border-radius: 11px; background: #fff; box-shadow: 0 14px 34px rgba(24,34,48,.15); } .panel-kicker { color: #84919c; font-size: 10px; text-transform: uppercase; letter-spacing: .12em; } .panel h2 { margin: 8px 0 14px; font-size: 17px; } .row { display: flex; justify-content: space-between; padding: 8px 0; border-top: 1px solid #edf1f3; font-size: 11px; color: #687582; } .row b { color: #1f2937; font-weight: 650; } .prompt { margin-top: 13px; padding: 11px; border-radius: 7px; background: #f1f8fa; color: #35606b; font: 10px/1.55 monospace; } .copy-btn { margin-top: 12px; width: 100%; padding: 10px; border: 0; border-radius: 7px; background: #111827; color: #fff; font-size: 11px; font-weight: 700; }
+    .promo { width: 440px; height: 280px; position: relative; background: #111827; overflow: hidden; color: #fff; } .promo .grid { position: absolute; inset: 0; opacity: .14; background-image: linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px); background-size: 28px 28px; } .promo-content { position: relative; padding: 36px 34px; } .promo h3 { margin: 0; width: 250px; font-size: 30px; line-height: 1.05; letter-spacing: -.04em; } .promo p { width: 245px; margin-top: 14px; color: #a5f3fc; font-size: 12px; line-height: 1.55; } .promo .mini-toolbar { position: absolute; right: 25px; bottom: 28px; width: 176px; height: 116px; border: 1px solid #2f455a; border-radius: 10px; background: #1f2937; padding: 12px; box-shadow: 0 14px 24px rgba(0,0,0,.28); } .mini-box { height: 29px; border: 1px solid #22d3ee; border-radius: 5px; margin-bottom: 9px; } .mini-lines { height: 6px; border-radius: 4px; background: #536477; margin: 8px 0; } .mini-lines.short { width: 63%; } .mini-button { height: 25px; border-radius: 5px; background: #06b6d4; margin-top: 11px; }
+  </style>
+</head>
+<body>
+  <div class="browser" id="screenshot">
+    <div class="chrome"><div class="dots"><i></i><i></i><i></i></div><div class="address">example.com / product</div><span>Visual Code Prompt</span></div>
+    <div class="page">
+      <div class="nav"><div class="brand">Northstar Studio</div><div class="links"><span>Work</span><span>About</span><span>Contact</span></div></div>
+      <div class="hero"><div><div class="eyebrow">Design system for the web</div><h1>Turn visual feedback into focused code changes.</h1><div class="copy">Select a live element, inspect its rendered state, and hand an actionable prompt to your AI coding agent.</div><div class="cta">Explore the workflow <span>→</span></div></div><div class="mock"><div class="mock-top"><i></i><i></i><i></i><span>Live page preview</span></div><div class="mock-content"><div class="mock-label"></div><div class="mock-title"></div><div class="mock-line"></div><div class="mock-line" style="width: 195px"></div><div class="mock-card"><b></b><p></p><p style="width: 160px"></p></div></div><div class="selection"></div></div></div>
+      <div class="panel"><div class="panel-kicker">Visual Code Prompt</div><h2>Selected element</h2><div class="row"><span>Element</span><b>section.card</b></div><div class="row"><span>Width</span><b>290 px</b></div><div class="row"><span>Spacing</span><b>24 / 15 px</b></div><div class="row"><span>Color</span><b>#EFF9FB</b></div><div class="prompt">Update the selected card section. Increase the title contrast and keep the current spacing rhythm.</div><button class="copy-btn">Copy AI edit prompt</button></div>
+      <div class="toolbar"><em></em><strong>Visual Code Prompt</strong><div class="sep"></div><div class="tool active">↗</div><div class="tool">✎</div><div class="tool">↔</div><div class="tool">×</div></div>
+    </div>
+  </div>
+  <div class="promo" id="promo"><div class="grid"></div><div class="promo-content"><h3>Visual Code Prompt</h3><p>Select a webpage element. Generate a precise prompt. Ship better frontend changes with your AI agent.</p><div class="mini-toolbar"><div class="mini-box"></div><div class="mini-lines"></div><div class="mini-lines short"></div><div class="mini-button"></div></div></div></div>
+  <script>if (location.hash === '#promo') document.getElementById('screenshot').style.display = 'none'; else document.getElementById('promo').style.display = 'none';</script>
+</body>
+</html>

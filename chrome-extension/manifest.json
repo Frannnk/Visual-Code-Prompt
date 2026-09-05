@@ -3,10 +3,19 @@
   "name": "Visual Code Prompt",
   "description": "Select live webpage elements and generate precise AI edit prompts and runtime patches.",
   "version": "0.1.0",
-  "permissions": ["activeTab"],
+  "icons": {
+    "16": "src/assets/icon-16.png",
+    "48": "src/assets/icon-48.png",
+    "128": "src/assets/icon-128.png"
+  },
+  "permissions": [],
   "host_permissions": ["<all_urls>"],
   "action": {
-    "default_title": "Visual Code Prompt"
+    "default_title": "Visual Code Prompt",
+    "default_icon": {
+      "16": "src/assets/icon-16.png",
+      "48": "src/assets/icon-48.png"
+    }
   },
   "background": {
     "service_worker": "src/background.js"
