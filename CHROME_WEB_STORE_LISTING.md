@@ -1,154 +1,245 @@
-# Chrome Web Store Listing
+# Chrome Web Store 上架文案
 
-This file is the source of truth for the Chrome Web Store submission. Keep the
-store listing, `manifest.json`, and `PRIVACY.md` aligned when the product changes.
+本文件按 Chrome Web Store 开发者后台的常见字段整理。优先使用下面的中文版本；如果商店后台以英文作为主语言，可使用英文版本。
 
-## Basic information
+## 一、基础信息
 
-- **Product name:** Visual Code Prompt
-- **Short description:** Select webpage elements visually and generate precise AI prompts for frontend code changes.
-- **Category:** Developer Tools
-- **Primary language:** English
-- **Website:** https://github.com/Frannnk/Visual-Code-Prompt
-- **Support URL:** https://github.com/Frannnk/Visual-Code-Prompt/issues
-- **Privacy policy URL:** https://github.com/Frannnk/Visual-Code-Prompt/blob/main/PRIVACY.md
-- **Version:** 0.1.0
+### 商品名称
 
-## Chinese translation
+```text
+Visual Code Prompt
+```
 
-Use this as a Chinese-language listing if you add a second localized listing in
-the developer dashboard.
+### 中文名称（如创建中文语言版本）
 
-- **名称：** Visual Code Prompt
-- **简短描述：** 在网页上可视化选中元素，为前端代码修改生成精准的 AI 提示词。
-- **详细描述：**
+```text
+Visual Code Prompt
+```
 
-  Visual Code Prompt 帮助前端开发者和 AI 编程 Agent 把视觉反馈转化为更精准的实现指令。
+### 分类
 
-  在网页上启动插件，选中需要调整的元素，查看它的布局、间距、字体、颜色和运行时样式，并进行临时的编辑、移动或缩放。插件会根据选中元素及其上下文生成结构化修改提示词。复制提示词后，可以直接交给你常用的 AI 编程 Agent 或开发者，减少来回描述和定位误差。
+```text
+Developer Tools
+```
 
-  - 直接在普通网页上选中元素
-  - 查看布局、间距、字体、颜色和运行时样式
-  - 临时编辑、移动和缩放元素
-  - 添加交互说明和实现备注
-  - 生成并复制结构化 AI 修改提示词
-  - 不修改源代码；刷新页面即可恢复原始状态
+### 商店语言
 
-  Visual Code Prompt 不包含 AI 模型，也不会向远程 AI 服务发送请求。提示词在本地生成，你可以把它交给自己偏好的 Agent 和开发流程。
+```text
+中文（简体）
+```
 
-## Detailed description
+建议同时创建英文语言版本，扩大开发者用户覆盖范围。
 
-Visual Code Prompt helps frontend developers and AI coding agents turn visual
-feedback into precise implementation instructions.
+### 官方网站
 
-Open the extension on a live webpage, select the element that needs attention,
-inspect its rendered layout and styles, and make a temporary visual adjustment.
-The extension then generates a structured prompt that describes the selected
-element, its context, and the requested change. Copy the prompt and hand it to
-your AI coding agent or developer for a more targeted code update.
+```text
+https://github.com/Frannnk/Visual-Code-Prompt
+```
 
-### Features
+### 支持页面
 
-- Select elements directly on any regular webpage.
-- Inspect layout, spacing, typography, color, and rendered style details.
-- Edit, move, and resize elements in a temporary runtime preview.
-- Add interaction or implementation notes to the selected element.
-- Generate and copy structured AI edit prompts.
-- Keep the original source code unchanged; refresh the page to restore the
-  original runtime state.
+```text
+https://github.com/Frannnk/Visual-Code-Prompt/issues
+```
 
-Visual Code Prompt does not include an AI model or make remote AI requests. It
-creates the prompt locally so you can use it with the coding agent and workflow
-you already prefer.
+### 隐私权政策网址
 
-## Permission justifications
+```text
+https://github.com/Frannnk/Visual-Code-Prompt/blob/main/PRIVACY.md
+```
 
-Use these explanations in the Chrome Web Store Privacy practices section.
+## 二、中文商店文案
 
-### Host access: `<all_urls>`
+### 简短描述
 
-The extension needs to work on the regular webpages that a developer is
-reviewing, not only on a fixed list of domains. The content script runs locally
-in the current tab to read DOM and computed-style information, draw selection
-overlays, apply temporary runtime adjustments, and generate prompts. No page
-data is transmitted to a server.
+Chrome Web Store 简短描述建议控制在 132 个字符以内。
 
-### Content script
+```text
+在网页上可视化选中元素，为前端代码修改生成精准的 AI 提示词。
+```
 
-The content script injects the visual toolbar only after the user activates the
-extension. It reads the selected page element and its rendered context locally.
-It does not submit page data, credentials, or form content to an external
-service.
+### 详细描述
 
-### `web_accessible_resources`
+```text
+Visual Code Prompt 是一款面向前端开发者和 AI 编程 Agent 的可视化网页调整工具。
 
-The extension exposes only its own CSS and icon assets so the locally injected
-overlay can load them inside the page. This is not a data collection channel.
+在网页上启动插件，直接选中需要调整的元素，查看它的布局、间距、字体、颜色和运行时样式，并进行临时的编辑、移动或缩放。插件会根据选中的元素及其上下文生成结构化的修改提示词，帮助你把“这里看起来不对”转化为更具体、更容易执行的代码修改指令。
 
-## Data disclosure answers
+核心功能：
 
-- **Does the extension collect user data?** No.
-- **Does the extension sell or transfer user data?** No.
-- **Does the extension use data for advertising?** No.
-- **Does the extension use data for creditworthiness, lending, or insurance?** No.
-- **Does the extension handle authentication information?** No.
-- **Does the extension handle financial or payment information?** No.
-- **Does the extension handle health information?** No.
-- **Does the extension handle personally identifiable information?** No.
-- **Does the extension handle webpage content?** It reads the current page locally only to perform the user-requested visual inspection and prompt generation; it does not collect or transmit that content.
+• 在普通网页上直接选中页面元素
+• 查看元素的布局、尺寸、间距、字体、颜色和运行时样式
+• 临时编辑、移动和缩放元素，快速验证视觉调整方向
+• 为元素添加交互说明和实现备注
+• 生成并复制结构化的 AI 修改提示词
+• 将视觉反馈交给你正在使用的 AI 编程 Agent 或开发者
+• 刷新页面即可恢复原始状态，不修改网页源代码
 
-## Distribution and pricing
+Visual Code Prompt 不包含 AI 模型，也不会自动调用远程 AI 服务。提示词在当前浏览器中本地生成，用户可以将它复制到自己偏好的 AI 编程工具中继续使用。
 
-- **Visibility:** Public
-- **Price:** Free
-- **In-app purchases:** None
-- **Recommended regions:** All regions where Chrome Web Store distribution is available
-- **Recommended website:** The public GitHub repository above
+适用场景：
 
-## Version notes
+• 前端页面视觉检查
+• UI 设计与代码之间的沟通
+• AI 编程 Agent 的网页修改任务
+• 页面布局、间距和样式的快速验证
+• 将设计反馈整理成可执行的代码修改说明
 
-Paste this into the release notes field for version `0.1.0`:
+注意：插件仅对当前页面进行临时运行时调整，不会直接修改项目源代码。浏览器内部页面（例如 chrome:// 页面）不支持使用本插件。
+```
 
-> Initial public release. Select live webpage elements, inspect their rendered
-> styles, make temporary visual adjustments, and copy precise prompts for AI
-> coding agents.
+### 版本更新说明
 
-## Graphic assets
+```text
+首次公开发布。
 
-| Asset | File | Size | Use |
-| --- | --- | ---: | --- |
-| Extension icon | `chrome-extension/src/assets/icon-128.png` | 128x128 | Required store icon |
-| Toolbar icon | `chrome-extension/src/assets/icon-48.png` | 48x48 | Browser action icon |
-| Small icon | `chrome-extension/src/assets/icon-16.png` | 16x16 | Browser/UI fallback |
-| Product screenshot | `store-assets/visual-code-prompt-screenshot-1280x800.png` | 1280x800 | Store screenshot |
-| Promotional tile | `store-assets/visual-code-prompt-promo-440x280.png` | 440x280 | Small promotional tile |
+• 在网页上可视化选中页面元素
+• 查看元素的布局和运行时样式
+• 临时编辑、移动和缩放元素
+• 生成并复制面向 AI 编程 Agent 的修改提示词
+• 支持交互说明和实现备注
+```
 
-The product screenshot is intentionally a designed sample webpage. It contains
-no personal information, customer data, external brand marks, or unsupported
-claims.
+## 三、英文商店文案
 
-## Reviewer notes
+### Short description
 
-To verify the core flow:
+```text
+Select webpage elements visually and generate precise AI prompts for frontend code changes.
+```
 
-1. Load the `chrome-extension/` directory as an unpacked extension.
-2. Open any regular webpage.
-3. Click the Visual Code Prompt toolbar icon.
-4. Hover and click a visible webpage element.
-5. Use Edit, Move, or Scale to make a temporary adjustment.
-6. Open the adjustment panel and choose **复制调整提示词** to copy the local prompt.
-7. Refresh the page to confirm that the runtime-only adjustment is gone.
+### Detailed description
 
-The extension does not work on browser-internal pages such as `chrome://`
-pages, which is expected Chrome platform behavior.
+```text
+Visual Code Prompt is a visual webpage inspection and editing tool for frontend developers and AI coding agents.
 
-## Submission checklist
+Activate the extension on a webpage, select the element that needs attention, inspect its layout and rendered styles, and make temporary visual adjustments such as editing, moving, or resizing. The extension turns the selected element and its context into a structured edit prompt that you can copy directly to your preferred AI coding agent or developer.
 
-- [ ] Upload the ZIP produced at `dist/visual-code-prompt-v0.1.0.zip`.
-- [ ] Add the 1280x800 product screenshot from `store-assets/`.
-- [ ] Add the 440x280 small promotional tile from `store-assets/`.
-- [ ] Confirm the public privacy policy URL resolves without sign-in.
-- [ ] Confirm the support URL accepts issue reports.
-- [ ] Confirm the store category and primary language.
-- [ ] Complete the Privacy practices answers using the declarations above.
-- [ ] Review the permission warning shown by the dashboard before publishing.
+Core features:
+
+• Select elements directly on regular webpages
+• Inspect layout, dimensions, spacing, typography, colors, and rendered styles
+• Temporarily edit, move, and resize elements to test visual directions
+• Add interaction notes and implementation notes
+• Generate and copy structured AI edit prompts
+• Hand precise visual feedback to an AI coding agent or developer
+• Refresh the page to restore the original state without changing source code
+
+Visual Code Prompt does not include an AI model and does not make remote AI requests. Prompts are generated locally in the current browser tab, so you can use them with the AI coding workflow you already prefer.
+
+Use cases:
+
+• Frontend visual QA
+• Communication between design and code
+• Webpage editing tasks for AI coding agents
+• Rapid validation of layout, spacing, and style changes
+• Turning visual feedback into actionable implementation instructions
+
+The extension applies temporary runtime changes to the current page only. It does not directly modify project source code. Browser-internal pages such as chrome:// pages are not supported.
+```
+
+### Release notes
+
+```text
+Initial public release.
+
+• Select live webpage elements visually
+• Inspect layout and rendered styles
+• Temporarily edit, move, and resize elements
+• Generate and copy precise prompts for AI coding agents
+• Add interaction and implementation notes
+```
+
+## 四、隐私权政策与数据使用声明
+
+### 隐私权政策页面内容
+
+隐私政策文件位于仓库根目录的 [`PRIVACY.md`](./PRIVACY.md)，公开地址为：
+
+```text
+https://github.com/Frannnk/Visual-Code-Prompt/blob/main/PRIVACY.md
+```
+
+### 数据使用核心声明
+
+```text
+本扩展不收集、不上传、不出售、不共享用户数据。网页内容、DOM、样式信息和用户输入的说明仅在当前浏览器标签页中本地处理，用于完成用户主动发起的元素选择、样式检查、临时调整和提示词生成。扩展不使用广告、分析、追踪像素、Cookie、远程 AI 服务或外部数据服务器。
+```
+
+### Chrome 数据披露选项
+
+按当前产品行为填写：
+
+- 是否出售用户数据：否
+- 是否将用户数据用于广告：否
+- 是否将用户数据用于信用评估、贷款或保险：否
+- 是否收集个人身份信息：否
+- 是否收集健康信息：否
+- 是否收集财务或支付信息：否
+- 是否收集身份验证信息：否
+- 是否收集个人通信内容：否
+- 是否收集网页浏览活动：否
+- 是否收集网站内容：否
+- 是否收集位置数据：否
+- 是否收集其他用户数据：否
+
+补充说明：扩展会在用户主动使用时读取当前页面的 DOM、尺寸和 computed styles，但这些信息只在本地用于当前功能，不会被收集或传输到服务器。
+
+## 五、权限说明
+
+### `<all_urls>` 网站访问权限
+
+```text
+Visual Code Prompt 需要在用户正在检查的普通网页上运行，以便用户直接选中页面元素、读取元素的 DOM 和渲染样式、显示可视化选择框，并生成临时的运行时调整和 AI 修改提示词。扩展只在当前浏览器中本地处理这些信息，不会将网页内容、源代码、表单内容或选中元素信息上传到外部服务器。
+```
+
+### 内容脚本说明
+
+```text
+内容脚本用于在用户主动打开插件后显示可视化工具栏和元素选择界面。它读取当前页面中被用户选中的元素及其渲染上下文，用于样式检查、临时视觉调整和本地提示词生成。内容脚本不会向外部服务提交网页数据、登录信息或表单内容。
+```
+
+### `web_accessible_resources` 说明
+
+```text
+扩展仅开放自身使用的 CSS 文件和图标资源，使注入网页的本地可视化工具栏能够正确加载样式和图标。这些资源不用于收集或传输用户数据。
+```
+
+## 六、审核员测试说明
+
+```text
+1. 将 chrome-extension/ 目录作为未打包扩展加载到 Chrome。
+2. 打开任意普通网页。
+3. 点击浏览器工具栏中的 Visual Code Prompt 图标。
+4. 将鼠标移动到网页元素上，并点击选中一个元素。
+5. 使用 Edit、Move 或 Scale 工具进行临时调整。
+6. 打开调整面板，点击“复制调整提示词”。
+7. 将提示词粘贴到文本编辑器，确认其中包含选中元素和调整信息。
+8. 刷新网页，确认临时调整已恢复，网页源代码未被修改。
+
+插件无法在 chrome://extensions 等浏览器内部页面运行，这是 Chrome 平台限制，不是扩展故障。
+```
+
+## 七、开发者后台其他建议设置
+
+- 可见性：公开
+- 价格：免费
+- 应用内购买：无
+- 目标用户：前端开发者、UI/UX 设计师、AI 编程 Agent 用户、产品设计和研发团队
+- 商店语言主版本：中文（简体）或英文，建议根据主要用户选择
+- 网站和支持链接：使用上面的 GitHub 地址
+- 隐私政策：必须填写公开可访问的 `PRIVACY.md` 地址
+- 截图和宣传图：由项目方自行设计后上传
+
+## 八、提交前检查
+
+- [ ] 商品名称与 `manifest.json` 中的名称一致
+- [ ] 简短描述与产品实际能力一致
+- [ ] 详细描述没有声称插件会自动修改源代码
+- [ ] 权限说明解释了 `<all_urls>` 的实际用途
+- [ ] 隐私政策 URL 无需登录即可访问
+- [ ] 支持 URL 无需登录即可提交 Issue
+- [ ] 上传的 ZIP 根目录直接包含 `manifest.json`
+- [ ] 上传截图不含真实用户数据、密码、Cookie、账号信息或第三方敏感内容
+- [ ] 上传截图和宣传图由项目方自行设计
+- [ ] 发布版本号与 `manifest.json` 中的版本号一致
