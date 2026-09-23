@@ -102,16 +102,16 @@
 }
 
 .runtime-toolbar-group-primary.runtime-toolbar-design-only {
-  width: 160px;
+  width: max-content;
 }
 
 .runtime-toolbar-group-primary.runtime-toolbar-design-only::before {
-  width: 160px;
+  width: 100%;
   transform: translateX(0);
 }
 
 .runtime-toolbar-design-only .runtime-toolbar-segment {
-  width: 160px;
+  width: max-content;
 }
 
 .runtime-toolbar-design-only [data-act="interaction"] {
