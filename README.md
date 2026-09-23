@@ -1,4 +1,4 @@
-# Visual Code Prompt
+# Visual Code Prompt-通过视觉方式生成代码修改提示词
 
 Visual Code Prompt is a browser extension for AI agents and frontend workflows. It lets you select live webpage elements, inspect them in context, and generate precise edit prompts or runtime patch notes that can be handed directly to an AI model or code agent.
 

@@ -1,4 +1,4 @@
-# Visual Code Prompt Extension
+# Visual Code Prompt-通过视觉方式生成代码修改提示词 Extension
 
 Visual Code Prompt is a lightweight Chrome MV3 extension for selecting live webpage elements, inspecting their styles, and generating precise edit prompts for AI agents.
 

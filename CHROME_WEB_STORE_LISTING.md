@@ -7,13 +7,13 @@
 ### 商品名称
 
 ```text
-Visual Code Prompt
+Visual Code Prompt-通过视觉方式生成代码修改提示词
 ```
 
 ### 中文名称（如创建中文语言版本）
 
 ```text
-Visual Code Prompt
+Visual Code Prompt-通过视觉方式生成代码修改提示词
 ```
 
 ### 分类
