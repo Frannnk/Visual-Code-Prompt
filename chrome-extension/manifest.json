@@ -2,9 +2,10 @@
   "manifest_version": 3,
   "name": "Visual Code Prompt-通过视觉方式生成代码修改提示词",
   "description": "Select live webpage elements and generate precise AI edit prompts and runtime patches.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "icons": {
     "16": "src/assets/icon-16.png",
+    "32": "src/assets/icon-32.png",
     "48": "src/assets/icon-48.png",
     "128": "src/assets/icon-128.png"
   },
@@ -14,7 +15,9 @@
     "default_title": "Visual Code Prompt-通过视觉方式生成代码修改提示词",
     "default_icon": {
       "16": "src/assets/icon-16.png",
-      "48": "src/assets/icon-48.png"
+      "32": "src/assets/icon-32.png",
+      "48": "src/assets/icon-48.png",
+      "128": "src/assets/icon-128.png"
     }
   },
   "background": {
