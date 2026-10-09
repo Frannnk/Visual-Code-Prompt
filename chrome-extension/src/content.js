@@ -17,7 +17,12 @@
     adjustments: new Map(),
     originals: new Map(),
     moveNotice: '',
-    colorDrag: null
+    colorDrag: null,
+    uiDrag: null,
+    uiPositions: {
+      toolbar: null,
+      devCard: null
+    }
   };
 
   const HOST_ID = '__runtime_code_mode_host__';
@@ -179,6 +184,7 @@
     sizeBadge = root.querySelector('.runtime-size-badge');
 
     toolbar.addEventListener('click', onToolbarClick);
+    toolbar.addEventListener('pointerdown', onToolbarDragPointerDown);
     selectedOutline?.addEventListener('mousedown', onPointerDown);
     designFloatingToolbar?.addEventListener('click', onFloatingToolbarClick);
     interactionCard?.addEventListener('input', onInteractionInput);
@@ -186,12 +192,16 @@
     devCard?.addEventListener('input', onDevInput);
     devCard?.addEventListener('keydown', onDevInputKeyDown);
     devCard?.addEventListener('click', onDevCardClick);
+    devCard?.addEventListener('pointerdown', onDevCardDragPointerDown);
     devCard?.addEventListener('pointerdown', onDevCardPointerDown);
     devCard?.addEventListener('focusout', onDevInputCommit, true);
     document.addEventListener('mousemove', onMouseMove, true);
     document.addEventListener('pointermove', onColorPointerMove, true);
+    document.addEventListener('pointermove', onUiDragPointerMove, true);
     document.addEventListener('pointerup', onColorPointerUp, true);
+    document.addEventListener('pointerup', onUiDragPointerUp, true);
     document.addEventListener('pointercancel', onColorPointerUp, true);
+    document.addEventListener('pointercancel', onUiDragPointerUp, true);
     document.addEventListener('mousedown', onPointerDown, true);
     document.addEventListener('mouseup', onPointerUp, true);
     document.addEventListener('click', onPageClick, true);
@@ -205,6 +215,7 @@
     state.designTool = 'edit';
     state.picking = true;
     renderToolbar();
+    positionToolbar();
     updateToolbarButtons();
     renderCards();
   }
@@ -228,6 +239,7 @@
     if (!toolbar) return;
 
     toolbar.removeEventListener('click', onToolbarClick);
+    toolbar.removeEventListener('pointerdown', onToolbarDragPointerDown);
     selectedOutline?.removeEventListener('mousedown', onPointerDown);
     designFloatingToolbar?.removeEventListener('click', onFloatingToolbarClick);
     interactionCard?.removeEventListener('input', onInteractionInput);
@@ -235,12 +247,16 @@
     devCard?.removeEventListener('input', onDevInput);
     devCard?.removeEventListener('keydown', onDevInputKeyDown);
     devCard?.removeEventListener('click', onDevCardClick);
+    devCard?.removeEventListener('pointerdown', onDevCardDragPointerDown);
     devCard?.removeEventListener('pointerdown', onDevCardPointerDown);
     devCard?.removeEventListener('focusout', onDevInputCommit, true);
     document.removeEventListener('mousemove', onMouseMove, true);
     document.removeEventListener('pointermove', onColorPointerMove, true);
+    document.removeEventListener('pointermove', onUiDragPointerMove, true);
     document.removeEventListener('pointerup', onColorPointerUp, true);
+    document.removeEventListener('pointerup', onUiDragPointerUp, true);
     document.removeEventListener('pointercancel', onColorPointerUp, true);
+    document.removeEventListener('pointercancel', onUiDragPointerUp, true);
     document.removeEventListener('mousedown', onPointerDown, true);
     document.removeEventListener('mouseup', onPointerUp, true);
     document.removeEventListener('click', onPageClick, true);
@@ -276,6 +292,7 @@
     state.cardVisible = false;
     devInputDraft = null;
     state.colorDrag = null;
+    state.uiDrag = null;
   }
 
   function onToolbarClick(event) {
@@ -350,6 +367,96 @@
 
   function isDesignSelectionMode() {
     return state.mode === 'design' && state.picking && ['edit', 'scale', 'move'].includes(state.designTool);
+  }
+
+  function onToolbarDragPointerDown(event) {
+    if (event.button !== 0 || !(toolbar instanceof HTMLElement)) return;
+    const target = event.target instanceof Element ? event.target : null;
+    if (target?.closest('.runtime-toolbar-icon-button')) return;
+    startUiDrag('toolbar', toolbar, event);
+  }
+
+  function onDevCardDragPointerDown(event) {
+    if (event.button !== 0 || !(devCard instanceof HTMLElement)) return;
+    const target = event.target instanceof Element ? event.target : null;
+    const head = target?.closest('.runtime-note-head');
+    if (!(head instanceof HTMLElement) || target?.closest('button, input, textarea, select')) return;
+    startUiDrag('devCard', devCard, event);
+  }
+
+  function startUiDrag(kind, node, event) {
+    const rect = node.getBoundingClientRect();
+    event.preventDefault();
+    event.stopPropagation();
+    node.classList.add('is-ui-dragging');
+    state.uiDrag = {
+      kind,
+      node,
+      pointerId: event.pointerId,
+      startX: event.clientX,
+      startY: event.clientY,
+      startLeft: rect.left,
+      startTop: rect.top
+    };
+    node.setPointerCapture?.(event.pointerId);
+  }
+
+  function onUiDragPointerMove(event) {
+    const drag = state.uiDrag;
+    if (!drag || drag.pointerId !== event.pointerId || !(drag.node instanceof HTMLElement)) return;
+    event.preventDefault();
+    event.stopPropagation();
+    const next = clampOverlayPosition(
+      drag.node,
+      drag.startLeft + event.clientX - drag.startX,
+      drag.startTop + event.clientY - drag.startY
+    );
+    applyUiPosition(drag.kind, drag.node, next);
+  }
+
+  function onUiDragPointerUp(event) {
+    const drag = state.uiDrag;
+    if (!drag || drag.pointerId !== event.pointerId) return;
+    drag.node?.classList.remove('is-ui-dragging');
+    if (drag.node instanceof HTMLElement && drag.node.hasPointerCapture?.(event.pointerId)) {
+      drag.node.releasePointerCapture?.(event.pointerId);
+    }
+    state.uiDrag = null;
+  }
+
+  function finishUiDrag() {
+    state.uiDrag?.node?.classList.remove('is-ui-dragging');
+    state.uiDrag = null;
+  }
+
+  function clampOverlayPosition(node, left, top) {
+    const margin = 8;
+    const rect = node.getBoundingClientRect();
+    const maxLeft = Math.max(margin, window.innerWidth - rect.width - margin);
+    const maxTop = Math.max(margin, window.innerHeight - rect.height - margin);
+    return {
+      left: Math.round(Math.min(Math.max(left, margin), maxLeft)),
+      top: Math.round(Math.min(Math.max(top, margin), maxTop))
+    };
+  }
+
+  function applyUiPosition(kind, node, position) {
+    state.uiPositions[kind] = position;
+    node.style.left = `${position.left}px`;
+    node.style.top = `${position.top}px`;
+    node.style.right = 'auto';
+    node.style.bottom = 'auto';
+    if (kind === 'toolbar') node.style.transform = 'none';
+  }
+
+  function positionToolbar() {
+    if (!(toolbar instanceof HTMLElement) || !state.uiPositions.toolbar) return;
+    const position = clampOverlayPosition(
+      toolbar,
+      state.uiPositions.toolbar.left,
+      state.uiPositions.toolbar.top
+    );
+    applyUiPosition('toolbar', toolbar, position);
   }
 
   function onMouseMove(event) {
@@ -508,6 +615,7 @@
   function onWindowBlur() {
     if (state.dragSession) commitDragSession();
     state.colorDrag = null;
+    finishUiDrag();
   }
 
   function commitDragSession() {
@@ -582,6 +690,7 @@
 
   function onViewportChange() {
     applyConstraintLayoutToAll();
+    positionToolbar();
     refreshSelectionUI();
   }
 
@@ -1269,6 +1378,15 @@
 
   function positionDevCard() {
     if (!devCard) return;
+    if (state.uiPositions.devCard) {
+      const position = clampOverlayPosition(
+        devCard,
+        state.uiPositions.devCard.left,
+        state.uiPositions.devCard.top
+      );
+      applyUiPosition('devCard', devCard, position);
+      return;
+    }
     devCard.style.right = '20px';
     devCard.style.top = '20px';
     devCard.style.left = 'auto';

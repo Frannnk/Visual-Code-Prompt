@@ -57,6 +57,12 @@
   will-change: width, transform;
   backface-visibility: hidden;
   contain: layout paint style;
+  cursor: grab;
+  touch-action: none;
+}
+
+.runtime-toolbar.is-ui-dragging {
+  cursor: grabbing;
 }
 
 .runtime-toolbar[data-mode="design"] {
@@ -112,6 +118,11 @@
 
 .runtime-toolbar-design-only .runtime-toolbar-segment {
   width: max-content;
+  cursor: grab;
+}
+
+.runtime-toolbar.is-ui-dragging .runtime-toolbar-segment {
+  cursor: grabbing;
 }
 
 .runtime-toolbar-design-only [data-act="interaction"] {
@@ -357,6 +368,15 @@
   padding: 0 12px;
   gap: 16px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.runtime-note-card-dev .runtime-note-head {
+  cursor: grab;
+  touch-action: none;
+}
+
+.runtime-note-card-dev.is-ui-dragging .runtime-note-head {
+  cursor: grabbing;
 }
 
 .runtime-note-tabs {

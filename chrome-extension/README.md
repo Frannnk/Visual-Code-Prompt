@@ -14,6 +14,7 @@ Visual Code Prompt is a lightweight Chrome MV3 extension for selecting live webp
 - Select elements directly on the page
 - Inspect layout, typography, color, spacing, and other runtime styles
 - Switch between selection, edit, move, and resize workflows
+- Drag the top toolbar and right-side editing panel to reposition them
 - Generate structured prompt text for code handoff
 - Copy adjustment notes for an AI agent or developer
 - Keep page changes in memory while the overlay is open
